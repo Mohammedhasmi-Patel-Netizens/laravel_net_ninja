@@ -10,20 +10,39 @@
 
 <body>
   @if(session('success'))
-    <div id="flash" class="p-4 text-center bg-green-50 font-bold">
-      {{session('success')}}
-    </div>
+  <div id="flash" class="p-4 text-center bg-green-50 font-bold">
+    {{session('success')}}
+  </div>
   @endif
-      <header>
-        <nav>
-          <h1>Ninja Network</h1>
-          <a href="{{route('ninjas.index')}}" class="btn">All Ninjas</a>
-          <a href="{{route('ninjas.create')}}">Create New Ninjas</a>
-        </nav>
-      </header>
+  <header>
+    <nav>
+      <h1>Ninja Network</h1>
+      <a href="{{route('ninjas.index')}}" class="btn">All Ninjas</a>
 
-      <main class="container">
-        {{$slot}}
-      </main>
+
+      <a href="{{route('ninjas.create')}}">Create New Ninjas</a>
+
+
+
+      @auth
+      <form action="{{route('logout')}}" method="POST">
+        @csrf
+        <button type="submit" class="btn">Logout</button>
+      </form>
+      @else
+      <a href="{{route('show.register')}}" class="btn">Register</a>
+      <a href="{{route('show.login')}}" class="btn">Login</a>
+
+      @endauth
+
+
+
+
+    </nav>
+  </header>
+
+  <main class="container">
+    {{$slot}}
+  </main>
 </body>
 </html>
